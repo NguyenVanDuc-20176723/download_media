@@ -15,15 +15,19 @@ def download_media(url):
         size = 0
         # i = 1
         while True:
-            with open(file_name, "ab") as f:
-                for truck in res.iter_content(chunk_size=2**20):
-                    if truck:
-                        f.write(truck)
-                        size += 2**20
-                        print(f"size: {size} / {total_size} Byte")
-                        # if size > 100000000*i:
-                        #     i += 1
-                        #     break
+            try:
+                with open(file_name, "ab") as f:
+                    for truck in res.iter_content(chunk_size=2**20):
+                        if truck:
+                            f.write(truck)
+                            size += 2**20
+                            print(f"size: {size} / {total_size} Byte")
+                            # if size > 100000000*i:
+                            #     i += 1
+                            #     break
+                    f.close()
+            except Exception as e:
+                print(e)
                 f.close()
             size = os.path.getsize(file_name)
             print(f"Size of file {file_name} is {size} Byte")
